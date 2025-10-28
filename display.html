@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Display</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+    }
+    h1 {
+      text-align: center;
+      color: #00bfa6;
+      margin-bottom: 20px;
+    }
+    p {
+      margin: 6px 0;
+      font-size: 15px;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background: #333;
+      margin: 12px 0;
+    }
+    .highlight {
+      color: #00bfa6;
+      font-weight: bold;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #00bfa6;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00a38e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Payroll Summary</h1>
+    <div id="display"></div>
+    <button onclick="goBack()">Back</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const name = params.get("name");
+    const position = params.get("position");
+    const rate = parseFloat(params.get("rate")) || 0;
+    const days = parseFloat(params.get("days")) || 0;
+
+    const gross = rate * days;
+    const sss = gross * 0.05;
+    const pagibig = gross * 0.03;
+    const philhealth = gross * 0.02;
+    const tax = gross * 0.05;
+    const totalDeduction = sss + pagibig + philhealth + tax;
+    const netPay = gross - totalDeduction;
+
+    document.getElementById("display").innerHTML = `
+      <p><b>ID Number:</b> ${id}</p>
+      <p><b>Name:</b> ${name}</p>
+      <p><b>Position:</b> ${position}</p>
+      <hr>
+      <p><b>Rate:</b> ₱${rate.toFixed(2)}</p>
+      <p><b>Days Worked:</b> ${days}</p>
+      <p><b>Gross Pay:</b> ₱${gross.toFixed(2)}</p>
+      <hr>
+      <p><b>SSS (5%):</b> ₱${sss.toFixed(2)}</p>
+      <p><b>PAG-IBIG (3%):</b> ₱${pagibig.toFixed(2)}</p>
+      <p><b>PhilHealth (2%):</b> ₱${philhealth.toFixed(2)}</p>
+      <p><b>Tax (5%):</b> ₱${tax.toFixed(2)}</p>
+      <hr>
+      <p><b>Total Deductions:</b> ₱${totalDeduction.toFixed(2)}</p>
+      <p class="highlight"><b>Net Pay:</b> ₱${netPay.toFixed(2)}</p>
+    `;
+
+    function goBack() {
+      window.location.replace("index.html");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Payroll Page</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      width: 90%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      color: #00bfa6;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 6px;
+      background-color: #2a2a2a;
+      color: #fff;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #00bfa6;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00a38e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Payroll Input</h1>
+    <label>ID Number:</label>
+    <input type="text" id="idNumber" placeholder="Enter ID">
+
+```
+<label>Name:</label>
+<input type="text" id="name" placeholder="Enter full name">
+
+<label>Position:</label>
+<input type="text" id="position" placeholder="Enter position">
+
+<label>Rate per Day (₱):</label>
+<input type="number" id="rate" placeholder="Enter rate">
+
+<label>Days Worked:</label>
+<input type="number" id="days" placeholder="Enter days worked">
+
+<button onclick="goToDisplay()">Submit</button>
+```
+
+  </div>
+
+  <script>
+    function goToDisplay() {
+      const id = document.getElementById('idNumber').value;
+      const name = document.getElementById('name').value;
+      const position = document.getElementById('position').value;
+      const rate = document.getElementById('rate').value;
+      const days = document.getElementById('days').value;
+
+      if (!id || !name || !position || !rate || !days) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      const params = new URLSearchParams({ id, name, position, rate, days });
+      window.location.href = "display.html?" + params.toString();
+    }
+  </script>
+
+</body>
+</html>
